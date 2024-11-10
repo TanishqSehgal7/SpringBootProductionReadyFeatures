@@ -43,4 +43,15 @@ public class PostServiceImplementation implements PostService {
 
         return modelMapper.map(post, PostDto.class);
     }
+
+    @Override
+    public PostDto updatePost(PostDto inputPost, Long postId) {
+        Post olderPost = postRepository
+                .findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
+        inputPost.setPostId(postId);
+        modelMapper.map(inputPost, olderPost);
+        Post savedPost = postRepository.save(olderPost);
+        return modelMapper.map(savedPost, PostDto.class);
+    }
 }

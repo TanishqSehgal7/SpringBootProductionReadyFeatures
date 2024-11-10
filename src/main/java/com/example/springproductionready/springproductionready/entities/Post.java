@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.envers.Audited;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "posts")
@@ -12,7 +15,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+@Audited
+public class Post extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,5 +24,21 @@ public class Post {
 
     private String title;
 
+//    @NotAudited
     private String description;
+
+    @PrePersist
+    void beforeSave() {
+
+    }
+
+    @PreUpdate
+    void beforeUpdate() {
+
+    }
+
+    @PreRemove
+    void beforeDelete() {
+
+    }
 }
