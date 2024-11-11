@@ -1,5 +1,4 @@
 package com.example.springproductionready.springproductionready;
-
 import com.example.springproductionready.springproductionready.clients.EmployeeClient;
 import com.example.springproductionready.springproductionready.dto.EmployeeDto;
 import org.junit.jupiter.api.MethodOrderer;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,7 +25,6 @@ class SpringproductionreadyApplicationTests {
 	@Order(1)
 	void getAllEmployees() {
 		List<EmployeeDto> employeeDtoList = employeeClient.getAllEmployees();
-
 		for (EmployeeDto employeeDto :  employeeDtoList) {
 			System.out.println(employeeDto);
 		}
@@ -47,4 +44,5 @@ class SpringproductionreadyApplicationTests {
 		EmployeeDto savedEmployeeDto = employeeClient.createNewEmployee(employeeDto);
 		System.out.println(savedEmployeeDto);
 	}
+
 }

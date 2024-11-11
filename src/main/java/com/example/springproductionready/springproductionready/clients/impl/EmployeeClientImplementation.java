@@ -6,6 +6,9 @@ import com.example.springproductionready.springproductionready.dto.EmployeeDto;
 import com.example.springproductionready.springproductionready.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import java.util.List;
@@ -49,13 +52,19 @@ public class EmployeeClientImplementation implements EmployeeClient {
     @Override
     public EmployeeDto createNewEmployee(EmployeeDto employeeDto) {
         try {
-            EmployeeResponse<EmployeeDto> employeeDtoEmployeeResponse = restClient.post()
+            ResponseEntity<EmployeeResponse<EmployeeDto>> employeeDtoEmployeeResponse = restClient.post()
                     .uri("employees")
                     .body(employeeDto)
                     .retrieve()
-                    .body(new ParameterizedTypeReference<>() {
-                    });
-            return employeeDtoEmployeeResponse.getEmployees();
+                    .onStatus(HttpStatusCode::is4xxClientError, ((request, response) -> {
+                        System.out.println("Error occured: " + new String(response.getBody().readAllBytes()));
+                        throw new ResourceNotFoundException("Could not create the Employee");
+                    }))
+//                    .body(new ParameterizedTypeReference<>() {
+//                    });   -> ony gives the response body
+                    .toEntity(new ParameterizedTypeReference<>() {
+                    }); // gives body with all headers and prameters
+            return employeeDtoEmployeeResponse.getBody().getEmployees();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -63,6 +72,5 @@ public class EmployeeClientImplementation implements EmployeeClient {
 
     /*
     Apart from this, we have post(), put(), patch() and delete() methods as well
-    * */
-
+    */
 }
