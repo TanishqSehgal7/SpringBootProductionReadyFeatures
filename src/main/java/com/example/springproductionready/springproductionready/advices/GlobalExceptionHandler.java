@@ -14,5 +14,4 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(exception.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
     }
-
 }

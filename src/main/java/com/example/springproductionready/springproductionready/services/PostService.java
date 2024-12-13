@@ -2,6 +2,7 @@ package com.example.springproductionready.springproductionready.services;
 import com.example.springproductionready.springproductionready.dto.PostDto;
 import java.util.List;
 
+
 public interface PostService {
 
     List<PostDto> getAllPosts();

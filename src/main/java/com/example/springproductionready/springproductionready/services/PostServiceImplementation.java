@@ -6,6 +6,7 @@ import com.example.springproductionready.springproductionready.exceptions.Resour
 import com.example.springproductionready.springproductionready.repositories.PostRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class PostServiceImplementation implements PostService {
 
     private final PostRepository postRepository;
     ModelMapper modelMapper;
+
+    public PostServiceImplementation(PostRepository postRepository, ModelMapper modelMapper) {
+        this.postRepository = postRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<PostDto> getAllPosts() {

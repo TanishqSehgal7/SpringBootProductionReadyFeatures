@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class AuditController {
 
     @Autowired
-    EntityManagerFactory entityManagerFactory;
+    private EntityManagerFactory entityManagerFactory;
 
     @GetMapping(path = "/posts/{postId}")
     public List<Post> getPostRevisions(@PathVariable Long postId) {
