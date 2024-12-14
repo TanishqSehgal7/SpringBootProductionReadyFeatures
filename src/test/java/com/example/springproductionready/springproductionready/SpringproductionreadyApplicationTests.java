@@ -11,38 +11,45 @@ import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
-//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SpringproductionreadyApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-//
-//	@Autowired
-//	EmployeeClient employeeClient;
-//
-//	@Test
-//	@Order(1)
-//	void getAllEmployees() {
-//		List<EmployeeDto> employeeDtoList = employeeClient.getAllEmployees();
-//		for (EmployeeDto employeeDto :  employeeDtoList) {
-//			System.out.println(employeeDto);
-//		}
-//	}
-//
-//	@Test
-//	@Order(2)
-//	void getEmployeeById() {
-//		EmployeeDto employeeDto = employeeClient.getEmployeeById(1L);
-//		System.out.println(employeeDto);
-//	}
-//
-//	@Test
-//	@Order(3)
-//	void createNewEmployeeTest() {
-//		EmployeeDto employeeDto = new EmployeeDto(null, "Tan", "tan@gmail.com", 25,LocalDate.of(2022,12,1),true,"USER",50000.0);
-//		EmployeeDto savedEmployeeDto = employeeClient.createNewEmployee(employeeDto);
-//		System.out.println(savedEmployeeDto);
-//	}
 
+	@Autowired
+	EmployeeClient employeeClient;
+
+	@Test
+	@Order(1)
+	void getAllEmployees() {
+		List<EmployeeDto> employeeDtoList = employeeClient.getAllEmployees();
+		for (EmployeeDto employeeDto :  employeeDtoList) {
+			System.out.println(employeeDto);
+		}
+	}
+
+	@Test
+	@Order(2)
+	void getEmployeeById() {
+		EmployeeDto employeeDto = employeeClient.getEmployeeById(1L);
+		System.out.println("Employee details with specified id are:\n " +
+			"Name: " + employeeDto.getName() + "\n" +
+			"Email: " + employeeDto.getEmail() + "\n" +
+			"Age: " + employeeDto.getAge() +  "\n" +
+			"Role: " + employeeDto.getRole() + "\n" +
+			"Date of Joining: " + employeeDto.getDateOfJoining());
+	}
+
+	@Test
+	@Order(3)
+	void createNewEmployeeTest() {
+		EmployeeDto employeeDto = new EmployeeDto(null, "Tan",
+				"tan@gmail.com", 25,
+				LocalDate.of(2022,12,1),
+				true,"USER",50000.0);
+		EmployeeDto savedEmployeeDto = employeeClient.createNewEmployee(employeeDto);
+		System.out.println(savedEmployeeDto);
+	}
 }
